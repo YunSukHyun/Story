@@ -42,13 +42,13 @@ class _StoryPageState extends State<StoryPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              const Expanded(
+              Expanded(
                 flex: 12,
                 child: Center(
                   child: Text(
                     //TODO: Step 10 - use the storyBrain to get the first story title and display it in this Text Widget.
-                    'Story text will go here.',
-                    style: TextStyle(
+                    storyBrain.story,
+                    style: const TextStyle(
                       fontSize: 25.0,
                     ),
                   ),
@@ -57,14 +57,18 @@ class _StoryPageState extends State<StoryPage> {
               Expanded(
                 flex: 2,
                 child: TextButton(
-                  onPressed: (){  },
+                  onPressed: (){
+                    setState(() {
+                      storyBrain.nextStory = 1;
+                    });
+                  },
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.red,
                     foregroundColor: Colors.white
                   ),
-                  child: const Text(
-                    'Choice1',
-                    style: TextStyle(
+                  child: Text(
+                    storyBrain.choice1,
+                    style: const TextStyle(
                       fontSize: 20,
                     ),
                   ),
@@ -79,16 +83,24 @@ class _StoryPageState extends State<StoryPage> {
                 flex: 2,
                 //TODO: Step 26 - Use a Flutter Visibility Widget to wrap this FlatButton.
                 //TODO: Step 28 - Set the "visible" property of the Visibility Widget to equal the output from the buttonShouldBeVisible() method in the storyBrain.
-                child: TextButton(
-                  onPressed: (){  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white
-                  ),
-                  child: const Text(
-                    'Choice2',
-                    style: TextStyle(
-                      fontSize: 20,
+                child: Visibility(
+                  visible: storyBrain.buttonVisibility(),
+                  child: TextButton(
+                    onPressed: (){
+                      setState(() {
+                        storyBrain.nextStory = 2;
+                      });
+
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white
+                    ),
+                    child: Text(
+                      storyBrain.choice2,
+                      style: const TextStyle(
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ),

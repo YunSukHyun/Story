@@ -36,8 +36,55 @@ class StoryBrain{
         choice1: 'Restart',
         choice2: '')
   ];
+  int _storyNumber = 0;
   String get story{
-    return _storyData[0].storyTitle;
+    return _storyData[_storyNumber].storyTitle;
+  }
+  String get choice1{
+    return _storyData[_storyNumber].choice1;
+  }
+  String get choice2{
+    return _storyData[_storyNumber].choice2;
+  }
+  bool buttonVisibility(){
+    if(_storyNumber == 0 || _storyNumber == 1 || _storyNumber == 2){
+      return true;
+    } else {
+      return false;
+    }
+  }
+  set nextStory(int choiceNumber) {
+    switch (_storyNumber) {
+      case 0:
+        if (choiceNumber == 1) {
+          _storyNumber = 2;
+        }
+        else {
+          _storyNumber = 1;
+        }
+        break;
+      case 1:
+        if (choiceNumber == 1) {
+          _storyNumber = 2;
+        }
+        else {
+          _storyNumber = 3;
+        }
+        break;
+      case 2:
+        if (choiceNumber == 1) {
+          _storyNumber = 5;
+        }
+        else {
+          _storyNumber = 4;
+        }
+        break;
+      default:
+        restart();
+    }
+  }
+  void restart(){
+    _storyNumber = 0;
   }
 }
 
